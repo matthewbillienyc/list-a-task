@@ -24,3 +24,9 @@ ul {
 .bottom-margin {
   margin-bottom: 20px;
 }
+.tiny-text {
+  font-size: 8px;
+}
+.right-align {
+  text-align: right;
+}

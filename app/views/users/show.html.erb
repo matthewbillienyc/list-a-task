@@ -4,7 +4,7 @@
       <%= form_for @list, html: {class: "form-horizontal", id: "add-list"}, remote: true do |f| %>
         <%= f.submit 'Add List', class: "btn btn-primary" %>
         <%= f.hidden_field :user_id, value: @user.id %>
-        <%= f.text_field :name %>
+        <%= f.text_field :name, placeholder: "List Name" %>
       <% end %>
     </div>
   </div>
@@ -43,6 +43,7 @@
       var deleteBtns = $(".delete-list");
       addDeleteListener.call(deleteBtns);
       $("#task_list_id").append(data.options_partial);
+      $("#add-list input[type='text']").val("");
     })
 
     function addDeleteListener(){
@@ -58,6 +59,7 @@
         $("#list-"+data.task.list_id+" ul").append(data.task_partial)
         var taskDeletes = $(".delete-task");
         addDeleteTaskListener.call(taskDeletes);
+        $(".add-task input[type='text']").val("")
       })
     }
 
