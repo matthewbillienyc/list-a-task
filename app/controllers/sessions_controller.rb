@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       log_in(user)
       redirect_to user
     else
-      flash[:danger]= 'Invalid email/password'
+      flash[:danger]= 'Invalid username/password'
       render 'new'
     end
   end
