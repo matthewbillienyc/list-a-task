@@ -1,5 +1,5 @@
-<li class="task task-<%= task.id %>">
-  <p>Task: <%= task.description %></p>
-  <p>Priority: <%= task.priority %></p>
-  <%= button_to "X", task_path(task), method: :delete, class: "btn btn-primary", form_class: "delete-task", remote: true %>
+<li class="task task-<%= task.id %> list-group-item">
+  <span class="badge"><%= task.priority %></span>
+  <%= button_to "X", task_path(task), method: :delete, class: "btn btn-primary btn-xs", form_class: "delete-task", remote: true %>
+  <%= task.description %>
 </li>

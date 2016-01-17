@@ -1,18 +1,22 @@
 <div class="row bottom-margin">
   <div class="col-lg-4" id="add-list">
-    <%= form_for @list, html: {class: "form-horizontal", id: "add-list"}, remote: true do |f| %>
-      <%= f.submit 'Add List', class: "btn btn-primary" %>
-      <%= f.hidden_field :user_id, value: @user.id %>
-      <%= f.text_field :name %>
-    <% end %>
+    <div class="well">
+      <%= form_for @list, html: {class: "form-horizontal", id: "add-list"}, remote: true do |f| %>
+        <%= f.submit 'Add List', class: "btn btn-primary" %>
+        <%= f.hidden_field :user_id, value: @user.id %>
+        <%= f.text_field :name %>
+      <% end %>
+    </div>
   </div>
-  <div class="col-lg-8" id="add-task">
-    <%= form_for Task.new, html: {class: "form-horizontal add-task"}, remote: true do |f| %>
-      <p><%= f.submit "Add Task", class: "btn btn-primary" %></p>
-      <p><%= f.select :list_id, @user.lists.map {|list| [list.name, list.id]} %></p>
-      <%= f.text_field :description, placeholder: "description" %>
-      <%= f.text_field :priority, placeholder: "priotiy" %>
-    <% end %>
+  <div class="col-lg-4" id="add-task">
+    <div class="well">
+      <%= form_for Task.new, html: {class: "form-horizontal add-task"}, remote: true do |f| %>
+        <p><%= f.submit "Add Task", class: "btn btn-primary" %></p>
+        <p><%= f.select :list_id, @user.lists.map {|list| [list.name, list.id]} %></p>
+        <%= f.text_field :description, placeholder: "description" %>
+        <%= f.text_field :priority, placeholder: "priotiy" %>
+      <% end %>
+    </div>
   </div>
 </div>
 <div class="row">
@@ -51,7 +55,7 @@
 
     function addNewTaskListener(){
       this.on("ajax:success", function(e, data){
-        $("#list-"+data.task.list_id+" .tasks").append(data.task_partial)
+        $("#list-"+data.task.list_id+" ul").append(data.task_partial)
         var taskDeletes = $(".delete-task");
         addDeleteTaskListener.call(taskDeletes);
       })
