@@ -15,4 +15,11 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
+
+  def verify_user
+    unless current_user == User.find(params[:id])
+      flash[:error] = "You cannot view another user's lists."
+      redirect_to user_path(current_user)
+    end
+  end
 end

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :verify_user, only: [:show]
+
   def index
     @users = User.all
   end
