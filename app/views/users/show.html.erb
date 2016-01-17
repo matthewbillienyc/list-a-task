@@ -12,9 +12,9 @@
     <div class="well">
       <%= form_for Task.new, html: {class: "form-horizontal add-task"}, remote: true do |f| %>
         <p><%= f.submit "Add Task", class: "btn btn-primary" %></p>
-        <p><%= f.select :list_id, @user.lists.map {|list| [list.name, list.id]} %></p>
-        <%= f.text_field :description, placeholder: "description" %>
-        <%= f.text_field :priority, placeholder: "priotiy" %>
+        <p><%= f.label :list_id, "Select List:" %> <%= f.select :list_id, @user.lists.map {|list| [list.name, list.id]} %></p>
+        <p><%= f.label :priority, "Priority Level:" %> <%= f.select :priority, [["low", "low"], ["medium", "medium"], ["high", "high"]] %></p>
+        <p><%= f.text_area :description, placeholder: "description" %></p>
       <% end %>
     </div>
   </div>
@@ -59,7 +59,7 @@
         $("#list-"+data.task.list_id+" ul").append(data.task_partial)
         var taskDeletes = $(".delete-task");
         addDeleteTaskListener.call(taskDeletes);
-        $(".add-task input[type='text']").val("")
+        $(".add-task textarea").val("")
       })
     }
 
