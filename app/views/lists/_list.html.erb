@@ -1,0 +1,10 @@
+<div class="col-lg-4 list" id="list-<%= list.id %>">
+  <div class="jumbotron">  
+    <h2><%= list.name %></h2><%= button_to "X", list_path(list), method: :delete, class: "btn btn-primary", form_class: "delete-list", remote: true %>
+    <ul class="tasks">
+      <% list.tasks.each do |task| %>
+        <%= render partial: "tasks/task", locals: {task: task} %>
+      <% end %>
+    </ul>
+  </div>
+</div>
