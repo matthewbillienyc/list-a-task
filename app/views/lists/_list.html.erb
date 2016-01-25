@@ -1,8 +1,13 @@
 <div class="col-lg-4 list" id="list-<%= list.id %>">
   <div class="list-group">
-    <a href="#" class="list-group-item">
+    <div class="list-group-item">
       <h4 class="list-group-item-heading"><%= list.name %></h4><%= button_to "X", list_path(list), method: :delete, class: "btn btn-primary btn-xs", form_class: "delete-list", remote: true %>
-    </a>
+        <% if list.star.nil? %>
+          <%= render partial: 'stars/star', locals: {starable: list} %>
+        <% else %>
+          <%= render partial: 'stars/unstar', locals: {star: list.star} %>
+        <% end %>
+    </div>
     <ul class="list-group">
       <% list.tasks.each do |task| %>
       <%= render partial: "tasks/task", locals: {task: task} %>

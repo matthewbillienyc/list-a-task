@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :users
   resources :lists, only: [:create, :destroy]
   resources :tasks, only: [:create, :destroy]
+  resources :stars, only: [:create, :destroy]
 end

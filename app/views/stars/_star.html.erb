@@ -1,0 +1,5 @@
+<%= form_for Star.new do |f| %>
+  <%= f.hidden_field :starable_id, value: starable.id %>
+  <%= f.hidden_field :starable_type, value: starable.class.name %>
+  <input type="submit" id="star-btn" class='btn btn-primary btn-xs' name="commit" value="&#9733;">
+<% end %>

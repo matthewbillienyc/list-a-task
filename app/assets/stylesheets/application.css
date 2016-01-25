@@ -30,3 +30,6 @@ ul {
 .right-align {
   text-align: right;
 }
+#unstar-btn {
+  color: #006eff;
+}
