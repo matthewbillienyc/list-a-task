@@ -33,22 +33,46 @@
     var deleteBtns = $(".delete-list");
     var newTaskBtn = $(".add-task");
     var taskBtns = $(".delete-task");
+    var starBtns = $("#star-btn");
+    var unstarBtns = $("#unstar-btn");
     addDeleteTaskListener.call(taskBtns);
     addDeleteListener.call(deleteBtns);
     addNewTaskListener.call(newTaskBtn);
+    addStarListener.call(starBtns);
+    addUnstarListener.call(unstarBtns);
 
     $("#add-list").on("ajax:success", function(e, data){
       $(".lists-div").append(data.list_partial);
       checkForLists();
       var deleteBtns = $(".delete-list");
+      var starBtn = $("#list-"+data.list.id+" > .star-span #star-btn");
       addDeleteListener.call(deleteBtns);
+      addStarListener.call(starBtn);
       $("#task_list_id").append(data.options_partial);
       $("#add-list input[type='text']").val("");
     })
 
+    function addUnstarListener(){
+      this.on("ajax:success", function(e, data){
+        var stype = data.starable_type.toLowerCase();
+        $("#"+stype+"-"+data.starable_id+" > .star-span").html(data.star_partial);
+        var starBtn = $("#"+stype+"-"+data.starable_id+" > .star-span #star-btn");
+        addStarListener.call(starBtn);
+      })
+    }
+
+    function addStarListener(){
+      this.on("ajax:success", function(e, data){
+        var stype = data.star.starable_type.toLowerCase();
+        $("#"+stype+"-"+data.star.starable_id+" > .star-span").html(data.unstar_partial);
+        var unstarBtn = $("#"+stype+"-"+data.star.starable_id+" > .star-span #unstar-btn");
+        addUnstarListener.call(unstarBtn);
+      })
+    }
+
     function addDeleteListener(){
       this.on("ajax:success", function(e, data){
-        $("#list-"+data.list_id).remove();
+        $("#whole-list-"+data.list_id).remove();
         $("option[value='"+data.list_id+"']").remove()
         checkForLists();
       })
@@ -56,8 +80,10 @@
 
     function addNewTaskListener(){
       this.on("ajax:success", function(e, data){
-        $("#list-"+data.task.list_id+" ul").append(data.task_partial)
+        $("#whole-list-"+data.task.list_id+" ul").append(data.task_partial)
         var taskDeletes = $(".delete-task");
+        var starBtn = $("#task-"+data.task.id+" > .star-span #star-btn");
+        addStarListener.call(starBtn);
         addDeleteTaskListener.call(taskDeletes);
         $(".add-task textarea").val("")
       })
@@ -65,7 +91,7 @@
 
     function addDeleteTaskListener(){
       this.on("ajax:success", function(e, data){
-        $(".task-"+data.task_id).remove()
+        $("#task-"+data.task_id).remove()
       })
     }
 

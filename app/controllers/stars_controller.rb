@@ -2,13 +2,15 @@ class StarsController < ApplicationController
   def create
     star = Star.new(star_params)
     star.save
-    redirect_to user_path(current_user)
+    unstar_partial = render_to_string(partial: 'stars/unstar', locals: {star: star})
+    render json: {unstar_partial: unstar_partial, star: star}
   end
 
   def destroy
     star = Star.find(params[:id])
+    star_partial = render_to_string(partial: 'stars/star', locals: {starable: star.starable})
     star.destroy
-    redirect_to user_path(current_user)
+    render json: {star_partial: star_partial, starable_id: star.starable_id, starable_type: star.starable_type}
   end
 
   private
