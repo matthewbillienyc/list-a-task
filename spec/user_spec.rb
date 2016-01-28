@@ -21,6 +21,8 @@ describe User do
   end
   it "is invalid with duplicate username" do
     create(:user, username: "bob")
-    expect(build(:user, username: "bob")).to be_invalid
+    user = build(:user, username: "bob")
+    user.valid?
+    expect(user.errors[:username]).to include("has already been taken")
   end
 end
