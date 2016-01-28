@@ -2,7 +2,7 @@
   <div class="list-group">
     <div class="list-group-item" id="list-<%= list.id %>">
       <h4 class="list-group-item-heading"><%= list.name %></h4><%= button_to "X", list_path(list), method: :delete, class: "btn btn-primary btn-xs", form_class: "delete-list", remote: true %>
-        <span class="star-span">
+        <span class="star-span btn-group">
           <% if list.star.nil? %>
             <%= render partial: 'stars/star', locals: {starable: list} %>
           <% else %>

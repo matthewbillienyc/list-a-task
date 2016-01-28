@@ -33,3 +33,6 @@ ul {
 #unstar-btn {
   color: #006eff;
 }
+.right {
+  float: right;
+}
