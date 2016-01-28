@@ -51,4 +51,20 @@ describe UsersController do
       end
     end
   end
+
+  describe "user access" do
+    before :each do
+      @user = create(:user)
+      session[:user_id] = @user.id
+    end
+
+    it "GET #new denies access" do
+      get :new
+      expect(response).to redirect_to user_path(@user)
+    end
+    it "POST #create denies access" do
+      post :create, user: attributes_for(:user)
+      expect(response).to redirect_to user_path(@user)
+    end
+  end
 end

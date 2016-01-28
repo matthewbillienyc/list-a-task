@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  # before_action :verify_user, only: [:show]
+  before_action :verify_user, only: [:show]
+  before_action :verify_logged_out, only: [:new, :create]
 
   def new
     @user = User.new
