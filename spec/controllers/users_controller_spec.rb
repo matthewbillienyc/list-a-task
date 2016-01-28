@@ -5,11 +5,13 @@ describe UsersController do
   describe "GET #show" do
     it "assigns the requested user to @user" do
       user = create(:user)
+      session[:user_id] = user.id
       get :show, id: user
       expect(assigns(:user)).to eq user
     end
     it "renders the :show template" do
       user = create(:user)
+      session[:user_id] = user.id
       get :show, id: user
       expect(response).to render_template :show
     end

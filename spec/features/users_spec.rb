@@ -13,22 +13,14 @@ feature "User management" do
 
   scenario "logs in user" do
     user = create(:user)
-    visit login_path
-    fill_in 'Username', with: user.username
-    fill_in 'Password', with: user.password
-    click_button 'Log In'
-
+    sign_in(user)
     expect(page).to have_content 'Welcome back!'
   end
 
   scenario "logs out user" do
     user = create(:user)
-    visit login_path
-    fill_in 'Username', with: user.username
-    fill_in 'Password', with: user.password
-    click_button 'Log In'
+    sign_in(user)
     click_link 'Log Out'
-
     expect(page).to have_content 'Goodbye!'
-  end
+  end  
 end

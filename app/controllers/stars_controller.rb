@@ -15,7 +15,7 @@ class StarsController < ApplicationController
 
   private
 
-  def star_params
-    params.require(:star).permit(:starable_id, :starable_type)
-  end
+    def star_params
+      params.require(:star).permit(:starable_id, :starable_type)
+    end
 end
