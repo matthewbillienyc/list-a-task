@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: params[:session][:username])
     if user && user.authenticate(params[:session][:password])
       log_in(user)
+      flash[:success] = "Welcome back!"
       redirect_to user
     else
       flash[:danger]= 'Invalid username/password'
@@ -19,6 +20,7 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out
+    flash[:success] = "Goodbye!"
     redirect_to root_url
   end
 end
