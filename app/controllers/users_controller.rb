@@ -1,9 +1,5 @@
 class UsersController < ApplicationController
-  before_action :verify_user, only: [:show]
-
-  def index
-    @users = User.all
-  end
+  # before_action :verify_user, only: [:show]
 
   def new
     @user = User.new
@@ -24,16 +20,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @list = List.new
     @task = Task.new
-  end
-
-  def edit
-    @user = User.find(params[:id])
-  end
-
-  def update
-  end
-
-  def destroy
   end
 
   private
