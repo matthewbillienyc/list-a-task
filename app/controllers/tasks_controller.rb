@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
+      CreateTaskServices.new(@task).call
       task_partial = render_to_string(partial: 'tasks/task', locals: {task: @task})
       render json: {task: @task, task_partial: task_partial}
     else

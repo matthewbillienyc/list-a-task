@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @list = List.new
+    @list = List.new(user_id: current_user.id)
     @task = Task.new
   end
 
@@ -41,4 +41,17 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:username, :password, :password_confirmation, :avatar)
     end
+
+    # def attempt_save(user)
+    #   if user.save
+    #     successful_save(user)
+    #   else
+    #     invalid_user
+    #   end
+    # end
+    #
+    # def successful_save(user, action)
+    #   if action == "create"
+    #     login()
+    # end
 end

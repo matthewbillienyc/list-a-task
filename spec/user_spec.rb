@@ -25,4 +25,20 @@ describe User do
     user.valid?
     expect(user.errors[:username]).to include("has already been taken")
   end
+  
+  context "it gets initialized with proper default values" do
+    let(:user) { build(:user) }
+    it "defaults 'admin' to false" do
+      expect(user.admin).to eq false
+    end
+    it "defaults lists_total to 0" do
+      expect(user.lists_total).to eq(0)
+    end
+    it "defaults tasks_total to 0" do
+      expect(user.tasks_total).to eq(0)
+    end
+    it "defaults stars_total to 0" do
+      expect(user.stars_total).to eq(0)
+    end
+  end
 end

@@ -14,11 +14,6 @@ describe Task do
     task.valid?
     expect(task.errors[:priority]).to include("can't be blank")
   end
-  it "should be invalid without a list_id" do
-    task = build(:task, list_id: nil)
-    task.valid?
-    expect(task.errors[:list_id]).to include("can't be blank")
-  end
   it "can be associated with a list" do
     list = create(:list)
     task = build(:task, list: list)

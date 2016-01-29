@@ -10,11 +10,6 @@ describe List do
     list.valid?
     expect(list.errors[:name]).to include("can't be blank")
   end
-  it "should be invalid without user_id" do
-    list = build(:list, user_id: nil)
-    list.valid?
-    expect(list.errors[:user_id]).to include("can't be blank")
-  end
   it "should be associated to a user" do
     user = create(:user)
     list = build(:list, user: user)
