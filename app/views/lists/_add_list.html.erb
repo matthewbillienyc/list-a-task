@@ -1,0 +1,5 @@
+<%= form_for @list, html: {class: "form-horizontal", id: "add-list"}, remote: true do |f| %>
+  <%= f.submit 'Add List', class: "btn btn-primary" %>
+  <%= f.hidden_field :user_id, value: @user.id %>
+  <%= f.text_field :name, placeholder: "List Name" %>
+<% end %>

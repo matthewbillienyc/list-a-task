@@ -1,12 +1,20 @@
 <li class="task list-group-item" id="task-<%= task.id %>">
-    <span class="badge"><%= task.priority %></span>
-    <%= button_to "X", task_path(task), method: :delete, class: "btn btn-primary btn-xs", form_class: "delete-task", remote: true %>
-    <span class="star-span">
-      <% if task.star.nil? %>
+  <div class="row">
+    <div class="col-xs-1">
+      <span class="star-span">
+        <% if task.star.nil? %>
         <%= render partial: 'stars/star', locals: {starable: task} %>
-      <% else %>
+        <% else %>
         <%= render partial: 'stars/unstar', locals: {star: task.star} %>
-      <% end %>
-    </span>
-  <%= task.description %>
+        <% end %>
+      </span>
+    </div>
+    <div class="col-xs-9">
+      <span class="badge"><%= task.priority %></span>
+      <%= task.description %>
+    </div>
+    <div class="col-xs-1">
+      <%= button_to "X", task_path(task), method: :delete, class: "btn btn-primary btn-xs", form_class: "delete-task", remote: true %>
+    </div>
+  </div>
 </li>

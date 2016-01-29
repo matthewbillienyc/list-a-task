@@ -36,3 +36,13 @@ ul {
 .right {
   float: right;
 }
+#flash {
+  height: 70px;
+}
+img {
+  max-height: 150px;
+  width: auto;
+}
+.controls {
+  max-height: 200px;
+}

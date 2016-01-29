@@ -5,7 +5,9 @@ class TasksController < ApplicationController
       task_partial = render_to_string(partial: 'tasks/task', locals: {task: @task})
       render json: {task: @task, task_partial: task_partial}
     else
-      render nothing: true
+      flash[:danger] = "Your task needs a description!"
+      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash } )
+      render json: { flash_partial: flash_partial }
     end
   end
 

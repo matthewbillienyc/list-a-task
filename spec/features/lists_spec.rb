@@ -10,8 +10,8 @@ feature "Add Lists and tasks, delete them, and star and unstar them" do
     click_button 'Add List'
     expect(page).to have_content "To Do"
 
-    select('To Do', from: 'Select List:')
-    select('medium', from: 'Priority Level:')
+    select('To Do', from: 'List')
+    select('medium', from: 'Priority')
     fill_in 'description', with: "Do chores"
     click_button 'Add Task'
     expect(page).to have_content "Do chores"

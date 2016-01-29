@@ -9,12 +9,8 @@
 <body>
   <%= render 'layouts/nav' %>
   <div class="container top-margin">
-    <div class="row">
-      <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %>">
-        <%= message %>
-      </div>
-      <% end %>
+    <div class="row" id="flash">
+      <%= render 'shared/flash' %>
     </div>
     <%= yield %>
   </div>

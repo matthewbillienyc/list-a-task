@@ -1,18 +1,27 @@
 <div class="col-lg-4 list" id="whole-list-<%= list.id %>">
   <div class="list-group">
     <div class="list-group-item" id="list-<%= list.id %>">
-      <h4 class="list-group-item-heading"><%= list.name %></h4><%= button_to "X", list_path(list), method: :delete, class: "btn btn-primary btn-xs", form_class: "delete-list", remote: true %>
-        <span class="star-span btn-group">
-          <% if list.star.nil? %>
-            <%= render partial: 'stars/star', locals: {starable: list} %>
-          <% else %>
-            <%= render partial: 'stars/unstar', locals: {star: list.star} %>
-          <% end %>
-        </span>
+      <div class="row">
+        <div class="col-xs-1">
+          <span class="star-span btn-group">
+            <% if list.star.nil? %>
+              <%= render partial: 'stars/star', locals: {starable: list} %>
+            <% else %>
+              <%= render partial: 'stars/unstar', locals: {star: list.star} %>
+            <% end %>
+          </span>
+        </div>
+        <div class="col-xs-9">
+          <h2 class="list-group-item-heading"><%= list.name %></h4>
+        </div>
+        <div class="col-xs-1">
+          <%= button_to "X", list_path(list), method: :delete, class: "btn btn-primary btn-xs", form_class: "delete-list", remote: true %>
+        </div>
+      </div>
     </div>
     <ul class="list-group">
       <% list.tasks.each do |task| %>
-      <%= render partial: "tasks/task", locals: {task: task} %>
+        <%= render partial: "tasks/task", locals: {task: task} %>
       <% end %>
     </ul>
   </div>

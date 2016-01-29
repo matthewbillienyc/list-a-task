@@ -7,7 +7,9 @@ class ListsController < ApplicationController
       dropdown_option = render_to_string(partial: 'lists/dropdown_option', locals: {list: @list})
       render json: {list: @list, list_partial: list_partial, options_partial: dropdown_option}
     else
-      render nothing: true
+      flash[:danger] = "Your list needs a name!"
+      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash } )
+      render json: { flash_partial: flash_partial }
     end
   end
 

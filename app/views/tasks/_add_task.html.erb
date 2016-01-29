@@ -1,0 +1,12 @@
+<%= form_for Task.new, html: {class: "form-horizontal add-task"}, remote: true do |f| %>
+  <div class="row">
+    <div class="col-xs-6">
+      <%= f.label :list_id, "List " %> <%= f.select :list_id, @user.lists.map {|list| [list.name, list.id]} %><br>
+      <%= f.label :priority, "Priority " %> <%= f.select :priority, [["low", "low"], ["medium", "medium"], ["high", "high"]] %>
+      <%= f.text_area :description, placeholder: "description" %>
+    </div>
+    <div class="col-xs-6">
+      <%= f.submit "Add Task", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
