@@ -3,7 +3,7 @@
     <div class="list-group-item" id="list-<%= list.id %>">
       <div class="row">
         <div class="col-xs-1">
-          <span class="star-span btn-group">
+          <span class="star-span list-star btn-group">
             <% if list.star.nil? %>
               <%= render partial: 'stars/star', locals: {starable: list} %>
             <% else %>

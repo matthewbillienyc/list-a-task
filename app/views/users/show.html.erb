@@ -32,15 +32,19 @@
     var deleteTaskBtns = $(".delete-task");
     var newTaskBtn = $(".add-task");
     var taskBtns = $(".delete-task");
-    var starBtns = $("#star-btn");
-    var unstarBtns = $("#unstar-btn");
+    var starListBtns = $(".list-star #star-btn");
+    var starTaskBtns = $(".task-star #star-btn");
+    var unstarListBtns = $(".list-star #unstar-btn");
+    var unstarTaskBtns = $(".task-star #unstar-btn");
     addListListener();
     addDeleteTaskListener.call(taskBtns);
     addDeleteListener.call(deleteListBtns);
     addDeleteTaskListener.call(deleteTaskBtns);
     addNewTaskListener.call(newTaskBtn);
-    addStarListener.call(starBtns);
-    addUnstarListener.call(unstarBtns);
+    addStarListener.call(starListBtns);
+    addStarListener.call(starTaskBtns);
+    addUnstarListener.call(unstarListBtns);
+    addUnstarListener.call(unstarTaskBtns);
 
     function addListListener(){
       $("#add-list").on("ajax:success", function(e, data){

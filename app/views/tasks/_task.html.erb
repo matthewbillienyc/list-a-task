@@ -1,11 +1,11 @@
 <li class="task list-group-item" id="task-<%= task.id %>">
   <div class="row">
     <div class="col-xs-1">
-      <span class="star-span">
+      <span class="star-span task-star">
         <% if task.star.nil? %>
-        <%= render partial: 'stars/star', locals: {starable: task} %>
+          <%= render partial: 'stars/star', locals: {starable: task} %>
         <% else %>
-        <%= render partial: 'stars/unstar', locals: {star: task.star} %>
+          <%= render partial: 'stars/unstar', locals: {star: task.star} %>
         <% end %>
       </span>
     </div>
