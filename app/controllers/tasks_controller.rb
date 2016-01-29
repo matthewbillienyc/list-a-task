@@ -18,6 +18,30 @@ class TasksController < ApplicationController
     render json: {task_id: @task_id}
   end
 
+  def edit_priority
+    task = Task.find(params[:id])
+    priority_partial = render_to_string(partial: 'edit_priority', locals: { task: task })
+    render json: { priority_partial: priority_partial, task: task }
+  end
+
+  def edit_description
+    task = Task.find(params[:id])
+    description_partial = render_to_string(partial: 'edit_description', locals: { task: task })
+    render json: { task: task, description_partial: description_partial }
+  end
+
+  def update
+    task = Task.find(params[:id])
+    task.update(task_params)
+    if task.save
+      render json: { task: task }
+    else
+      flash[:danger] = "Your task needs a description!"
+      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash })
+      render json: { flash_partial: flash_partial }
+    end
+  end
+
   private
 
     def task_params

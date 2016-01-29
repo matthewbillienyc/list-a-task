@@ -36,6 +36,8 @@
     var starTaskBtns = $(".task-star #star-btn");
     var unstarListBtns = $(".list-star #unstar-btn");
     var unstarTaskBtns = $(".task-star #unstar-btn");
+    var priorities = $(".priority");
+    var descriptions = $(".description");
     addListListener();
     addDeleteTaskListener.call(taskBtns);
     addDeleteListener.call(deleteListBtns);
@@ -45,6 +47,8 @@
     addStarListener.call(starTaskBtns);
     addUnstarListener.call(unstarListBtns);
     addUnstarListener.call(unstarTaskBtns);
+    addPriorityListener.call(priorities);
+    addDescriptionListener.call(descriptions);
 
     function addListListener(){
       $("#add-list").on("ajax:success", function(e, data){
@@ -82,6 +86,72 @@
       })
     }
 
+    function addPriorityListener(){
+      this.dblclick(function(){
+        var taskId = this.getAttribute("data-id");
+        $.ajax({
+          url: '/tasks/' + taskId + '/priority',
+          method: 'get',
+          data: null,
+          success: function(dataBack){
+            var prioritySelect = $("span.priority[data-id="+dataBack.task.id+"]");
+            prioritySelect.html(dataBack.priority_partial);
+            var dropdown = $("#edit_task_"+dataBack.task.id+" select");
+            addUpdatePriorityListener.call(dropdown);
+          }
+        })
+      })
+    }
+
+    function addUpdatePriorityListener(){
+      this.blur(function(){
+        var $form = $(this).parent()
+        $.ajax({
+          url: $form.attr('action'),
+          method: 'patch',
+          data: $form.serialize(),
+          success: function(dataBack){
+            var priority = $(".priority[data-id="+dataBack.task.id+"]");
+            priority.html(dataBack.task.priority);
+            addPriorityListener.call(priority);
+          }
+        })
+      })
+    }
+
+    function addDescriptionListener(){
+      this.dblclick(function(){
+        var taskId = this.getAttribute("data-id");
+        $.ajax({
+          url: '/tasks/'+taskId+'/description',
+          method: 'get',
+          data: null,
+          success: function(dataBack){
+            var description = $(".description[data-id="+dataBack.task.id+"]");
+            description.html(dataBack.description_partial);
+            var descriptionField = $("#edit_task_"+dataBack.task.id+" input");
+            addUpdateDescriptionListener.call(descriptionField);
+          }
+        })
+      })
+    }
+
+    function addUpdateDescriptionListener(){
+      this.blur(function(){
+        var $form = $(this).parent()
+        $.ajax({
+          url: $form.attr('action'),
+          method: 'patch',
+          data: $form.serialize(),
+          success: function(dataBack){
+            var description = $(".description[data-id="+dataBack.task.id+"]");
+            description.html(dataBack.task.description);
+            addDescriptionListener.call(description);
+          }
+        })
+      })
+    }
+
     function addDeleteListener(){
       this.on("ajax:success", function(e, data){
         $("#whole-list-"+data.list_id).remove();
@@ -96,6 +166,10 @@
           $("#whole-list-"+data.task.list_id+" ul").append(data.task_partial)
           var taskDeletes = $(".delete-task");
           var starBtn = $("#task-"+data.task.id+" .star-span #star-btn");
+          var priority = $(".priority[data-id="+data.task.id+"]");
+          var description = $(".description[data-id="+data.task.id+"]");
+          addPriorityListener.call(priority);
+          addDescriptionListener.call(description);
           addStarListener.call(starBtn);
           addDeleteTaskListener.call(taskDeletes);
           $(".add-task textarea").val("")

@@ -10,8 +10,12 @@
       </span>
     </div>
     <div class="col-xs-9">
-      <span class="badge"><%= task.priority %></span>
-      <%= task.description %>
+      <div class="col-xs-4">
+        <span class="badge priority" data-id="<%= task.id %>"><%= task.priority %></span>
+      </div>
+      <div class="col-xs-8">
+        <span class="description" data-id="<%= task.id %>"><%= task.description %></span>
+      </div>
     </div>
     <div class="col-xs-1">
       <%= button_to "X", task_path(task), method: :delete, class: "btn btn-primary btn-xs", form_class: "delete-task", remote: true %>

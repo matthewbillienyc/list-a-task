@@ -1,0 +1,3 @@
+<%= form_for task, method: :patch, remote: true do |f| %>
+  <%= f.text_field :description, placeholder: task.description %>
+<% end %>
