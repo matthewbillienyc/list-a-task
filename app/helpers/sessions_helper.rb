@@ -7,6 +7,10 @@ module SessionsHelper
     current_user.admin == true
   end
 
+  def admin_masquerade?
+    session[:admin_id]
+  end
+
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
@@ -14,6 +18,10 @@ module SessionsHelper
   def log_out
     session.delete(:user_id)
     @current_user = nil
+  end
+
+  def log_out_admin
+    session.delete(:admin_id) if session[:admin_id]
   end
 
   def logged_in?
@@ -44,7 +52,7 @@ module SessionsHelper
   end
 
   def verify_user
-    unless current_user == User.find(params[:id]) || current_user.admin == true
+    unless current_user == User.find(params[:id])
       flash[:danger] = "You cannot view another user's lists."
       redirect_to user_path(current_user)
     end

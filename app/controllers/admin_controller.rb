@@ -1,17 +1,19 @@
-class AdminController < ApplicationController
+	class AdminController < ApplicationController
   include AdminHelper
-  protect_from_forgery except: [:change_admin_priveledges]
   before_action :verify_admin
+  before_action :return_current_user_to_admin, only: [:home]
 
   def home
-    @users = User.all
+    @users = User.where(admin: false)
   end
 
-  def change_admin_priveledges
-    user = User.find(params[:id])
-    user.admin = true
-    user.save
-    flash[:success] = "#{user.username} now has admin access."
-    redirect_to admin_path
+  def log_in_as
+    @user = User.find(params[:id])
+    if !admin_masquerade?
+      session[:admin_id] = current_user.id
+    end
+    log_out
+    log_in(@user)
+    redirect_to user_path(current_user)
   end
 end

@@ -44,5 +44,11 @@ img {
   width: auto;
 }
 .controls {
+  height: 200px;
   max-height: 200px;
+}
+.center-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 40px;
 }
