@@ -6,9 +6,7 @@ class TasksController < ApplicationController
       task_partial = render_to_string(partial: 'tasks/task', locals: {task: @task})
       render json: {task: @task, task_partial: task_partial}
     else
-      flash[:danger] = "Description can't be blank"
-      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash } )
-      render json: { flash_partial: flash_partial }
+      invalid_task
     end
   end
 
@@ -37,9 +35,7 @@ class TasksController < ApplicationController
     if task.save
       render json: { task: task }
     else
-      flash[:danger] = "Description can't be blank"
-      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash } )
-      render json: { flash_partial: flash_partial }
+      invalid_task
     end
   end
 
@@ -47,5 +43,11 @@ class TasksController < ApplicationController
 
     def task_params
       params.require(:task).permit(:description, :priority, :list_id)
+    end
+
+    def invalid_task
+      flash[:danger] = "Description can't be blank"
+      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash } )
+      render json: { flash_partial: flash_partial }
     end
 end

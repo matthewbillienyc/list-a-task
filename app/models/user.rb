@@ -13,14 +13,14 @@ class User < ActiveRecord::Base
   end
 
   def self.total_lists_made
-    User.sum(:lists_total)
+    sum(:lists_total)
   end
 
   def self.total_tasks_made
-    User.sum(:tasks_total)
+    sum(:tasks_total)
   end
 
   def self.total_items_starred
-    User.sum(:stars_total)
+    sum(:stars_total)
   end
 end

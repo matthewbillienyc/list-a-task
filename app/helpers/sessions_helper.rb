@@ -20,6 +20,15 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def direct_user(user)
+    if admin?
+      redirect_to admin_path
+    else
+      flash[:success] = "Welcome back!"
+      redirect_to user
+    end
+  end
+
   def verify_logged_out
     unless !logged_in?
       flash[:danger] = "You must be logged out to access this"
