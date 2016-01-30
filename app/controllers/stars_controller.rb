@@ -4,14 +4,20 @@ class StarsController < ApplicationController
     @star.save
     CreateStarServices.new(@star).call
     unstar_partial = render_to_string(partial: 'stars/unstar', locals: {star: @star})
-    render json: {unstar_partial: unstar_partial, star: @star}
+    respond_to do |format|
+      format.json { render json: {unstar_partial: unstar_partial, star: @star} }
+      format.html { redirect_to user_path(current_user) }
+    end
   end
 
   def destroy
     @star = Star.find(params[:id])
     star_partial = render_to_string(partial: 'stars/star', locals: {starable: @star.starable})
     @star.destroy
-    render json: {star_partial: star_partial, starable_id: @star.starable_id, starable_type: @star.starable_type}
+    respond_to do |format|
+      format.json { render json: {star_partial: star_partial, starable_id: @star.starable_id, starable_type: @star.starable_type} }
+      format.html { redirect_to user_path(current_user) }
+    end
   end
 
   private
