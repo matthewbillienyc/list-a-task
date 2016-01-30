@@ -10,8 +10,12 @@ class SessionsController < ApplicationController
     user = User.find_by(username: params[:session][:username])
     if user && user.authenticate(params[:session][:password])
       log_in(user)
-      flash[:success] = "Welcome back!"
-      redirect_to user
+      if admin?
+        redirect_to admin_path
+      else
+        flash[:success] = "Welcome back!"
+        redirect_to user
+      end
     else
       flash[:danger]= 'Invalid username/password'
       render 'new'

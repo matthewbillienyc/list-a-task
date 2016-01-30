@@ -2,6 +2,7 @@ class StarsController < ApplicationController
   def create
     @star = Star.new(star_params)
     @star.save
+    CreateStarServices.new(@star).call
     unstar_partial = render_to_string(partial: 'stars/unstar', locals: {star: @star})
     render json: {unstar_partial: unstar_partial, star: @star}
   end

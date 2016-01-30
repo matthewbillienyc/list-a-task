@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/about' => 'application#about'
   get '/tasks/:id/priority' => 'tasks#edit_priority', as: 'edit_task_priority'
   get '/tasks/:id/description' => 'tasks#edit_description', as: 'edit_task_description'
+  patch '/admin/:id' => 'admin#change_admin_priveledges'
+  get '/admin' => 'admin#home'
   resources :users, only: [:create, :update, :new]
   resources :lists, only: [:create, :destroy]
   resources :tasks, only: [:create, :destroy, :update]

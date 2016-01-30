@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "Add Lists and tasks, delete them, and star and unstar them" do
+feature "Add Lists and tasks, delete them, and star and unstar them, and edit them in place" do
   scenario "a user can add lists to his/her show page", js: true do
     user = create(:user)
     sign_in(user)

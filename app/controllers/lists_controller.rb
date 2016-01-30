@@ -2,6 +2,7 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
+      CreateListServices.new(@list).call
       task = Task.new
       list_partial = render_to_string(partial: 'lists/list', locals: {list: @list, task: task})
       dropdown_option = render_to_string(partial: 'lists/dropdown_option', locals: {list: @list})

@@ -2,10 +2,11 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
+      CreateTaskServices.new(@task).call
       task_partial = render_to_string(partial: 'tasks/task', locals: {task: @task})
       render json: {task: @task, task_partial: task_partial}
     else
-      flash[:danger] = "Your task needs a description!"
+      flash[:danger] = "Description can't be blank"
       flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash } )
       render json: { flash_partial: flash_partial }
     end
@@ -36,8 +37,8 @@ class TasksController < ApplicationController
     if task.save
       render json: { task: task }
     else
-      flash[:danger] = "Your task needs a description!"
-      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash })
+      flash[:danger] = "Description can't be blank"
+      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash } )
       render json: { flash_partial: flash_partial }
     end
   end
