@@ -4,9 +4,17 @@ class TasksController < ApplicationController
     if @task.save
       CreateTaskServices.new(@task).call
       task_partial = render_to_string(partial: 'tasks/task', locals: {task: @task})
-      render json: {task: @task, task_partial: task_partial}
+      respond_to do |format|
+        format.json { render json: {task: @task, task_partial: task_partial} }
+        format.html { redirect_to user_path(current_user) }
+      end
     else
-      invalid_task
+      flash[:danger] = "Description can't be blank"
+      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash } )
+      respond_to do |format|
+        format.json { render json: { flash_partial: flash_partial } }
+        format.html { redirect_to user_path(current_user) }
+      end
     end
   end
 
@@ -14,7 +22,10 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task_id = @task.id
     @task.destroy
-    render json: {task_id: @task_id}
+    respond_to do |format|
+      format.json { render json: {task_id: @task_id} }
+      format.html { redirect_to user_path(current_user) }
+    end
   end
 
   def edit_priority
@@ -35,7 +46,9 @@ class TasksController < ApplicationController
     if task.save
       render json: { task: task }
     else
-      invalid_task
+      flash[:danger] = "Description can't be blank"
+      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash } )
+      render json: { flash_partial: flash_partial }
     end
   end
 
@@ -43,11 +56,5 @@ class TasksController < ApplicationController
 
     def task_params
       params.require(:task).permit(:description, :priority, :list_id)
-    end
-
-    def invalid_task
-      flash[:danger] = "Description can't be blank"
-      flash_partial = render_to_string(partial: 'shared/flash', locals: { flash: flash } )
-      render json: { flash_partial: flash_partial }
     end
 end

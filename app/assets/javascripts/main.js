@@ -1,6 +1,7 @@
 $(function(){
-
+  
   checkForLists();
+  addListListener();
   var deleteListBtns = $(".delete-list");
   var deleteTaskBtns = $(".delete-task");
   var newTaskBtn = $(".add-task");
@@ -11,7 +12,6 @@ $(function(){
   var unstarTaskBtns = $(".task-star #unstar-btn");
   var priorities = $(".priority");
   var descriptions = $(".description");
-  addListListener();
   addDeleteTaskListener.call(taskBtns);
   addDeleteListener.call(deleteListBtns);
   addDeleteTaskListener.call(deleteTaskBtns);
