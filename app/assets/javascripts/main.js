@@ -1,5 +1,5 @@
 $(function(){
-  
+
   checkForLists();
   addListListener();
   var deleteListBtns = $(".delete-list");
@@ -22,6 +22,10 @@ $(function(){
   addUnstarListener.call(unstarTaskBtns);
   addPriorityListener.call(priorities);
   addDescriptionListener.call(descriptions);
+
+  $(document).ajaxError(function(){
+    $("#flash").html("<div class='alert alert-danger'>Ajax error</div>")
+  })
 
   function addListListener(){
     $("#add-list").on("ajax:success", function(e, data){

@@ -5,6 +5,7 @@ describe ListsController do
   describe "POST #create" do
     context "with valid attributes" do
       it "saves the new list in the database" do
+        user = User.create({username: "test", password: "e", password_confirmation: "e", id: 1})
         expect{
           post :create, list: attributes_for(:list)
         }.to change(List, :count).by(1)

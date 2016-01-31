@@ -6,7 +6,7 @@ class CreateTaskServices
   end
 
   def call
-    task.list.user.tasks_total += 1
-    task.list.user.save
+    task.user.tasks_total += 1
+    task.user.save
   end
 end
