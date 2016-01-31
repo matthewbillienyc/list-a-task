@@ -28,6 +28,7 @@ gem 'twitter-bootswatch-rails'
 gem 'twitter-bootswatch-rails-helpers'
 gem 'pry'
 gem 'carrierwave'
+gem 'acts_as_paranoid', github: 'ActsAsParanoid/acts_as_paranoid'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

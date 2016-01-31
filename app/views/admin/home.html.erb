@@ -17,7 +17,7 @@
             <td><%= link_to user.username %></td>
             <td><%= user.lists_total %></td>
             <td><%= user.tasks_total %></td>
-            <td><%= user.stars_total %></td>
+            <td><%= user.total_starred_items %></td>
             <td><%= link_to 'Log In', login_as_path(id: user.id), class: 'btn btn-primary btn-xs', method: :post %></td>
           </tr>
         <% end %>
@@ -34,9 +34,9 @@
       </thead>
       <tbody>
         <tr>
-          <td><%= User.total_lists_made %></td>
-          <td><%= User.total_tasks_made %></td>
-          <td><%= User.total_items_starred %></td>
+          <td><%= List.with_deleted.length %></td>
+          <td><%= Task.with_deleted.length %></td>
+          <td><%= Star.with_deleted.length %></td>
         </tr>
       </tbody>
     </table>
