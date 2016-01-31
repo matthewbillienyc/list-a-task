@@ -28,4 +28,8 @@ I approached this first without javascript, building out the domain model, then 
 
 I decided to leave out respond_to format.html in my controllers, as I was having trouble getting my tests to pass with it included. Also, since I used remote true on almost every form, It would never submit if javascript was disabled. I do have a method that notifies about ajax errors, however.
 
+My views are made up almost entirely of partials to allow them to render_to_string and be returned on ajax:success. In some cases, I am returning a json object with a partial object, an item_id object, and item object, or other objects in order to be able to append them properly to page, or in order to delete the appropriate elements from the page. I used several hidden fields for foreign_key ids in order to ensure objects would be built with the proper parent association.
+
+Future plans include figuring out a better solution to 'User#total_starred_items', adding some advanced activerecord methods, hopefully figuring out a way to delegate a user to my polymorphic Star class, and creating custom css layouts for lists and tasks. I would also like to implement a Tag model for Lists, with a ListTags join table.
+
 Hope you enjoy my roided up task lister!
