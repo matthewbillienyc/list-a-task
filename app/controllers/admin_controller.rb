@@ -14,6 +14,6 @@
     end
     log_out
     log_in(@user)
-    redirect_to user_path(current_user)
+    direct_user(@user)
   end
 end
