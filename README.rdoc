@@ -1,28 +1,31 @@
-== README
+List-A-Task: A jacked up task lister by Matthew Billie
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Dependencies:
 
-Things you may want to cover:
+bcrypt for secure passwords
+carrierwave for uploading avatars
+twitter-bootswatch-rails slate theme for layout
+postgresql database
+acts_as_paranoid for soft delete
+factory_girl_rails for test factories
 
-* Ruby version
+Instructions:
 
-* System dependencies
+Bundle install; rails server; make an account!
 
-* Configuration
+Features:
 
-* Database creation
+- Lists, tasks, and stars are ajaxed for instant updates
+- Users can upload an avatar image for their show page
+- Soft delete for recoverable items for admin statistics
+- Admin portal with masquerade log in as any user
+- Test suite for models, controllers, and some features
+- Edit in place for task descriptions/priorities
+- Polymorphic Star class, lists and tasks can be starred or unstarred
+- Proper user/admin verification for all pages
 
-* Database initialization
+I approached this first without javascript, building out the domain model, then creating the controllers, then views. Once everything was working without javascript, I added in all the ajax. This proved challenging, but through the use of data-id attributes I got everything ajaxed. Following this I added the image uploader, which was very easy with carrierwave. Next I added admin features. I wanted to have admin be able to log in as any user and also be able to return to their admin user without re-entering their information. To do this i used the log_in_as method that stores the admin user_id in session[:admin_id] for later retrieval. I wanted statistics for total lists, tasks, and stars made, so I decided to implement soft delete via the acts_as_paranoid gem. This was a bit challenging, since the documentation is spare, but I got it all working and now have almost all the statistics I wanted on the admin page. The most difficult statistic was 'total items starred for user'. The problem arose from the polymorphic association, but I did find a slightly messy work-around by finding all the starred lists, then selecting those with the proper user_id, I did the same for starred tasks, then combined their lengths to come up with total items starred for a user. I plan on looking in to delegation with polymorphism to solve this.
 
-* How to run the test suite
+I decided to leave out respond_to format.html in my controllers, as I was having trouble getting my tests to pass with it included. Also, since I used remote true on almost every form, It would never submit if javascript was disabled. I do have a method that notifies about ajax errors, however.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Hope you enjoy my roided up task lister!
