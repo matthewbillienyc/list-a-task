@@ -1,4 +1,4 @@
-<%= form_for Star.new, html: {id: "star-btn"}, remote: true do |f| %>
+<%= form_for Star.new, html: {id: "star-form"} do |f| %>
   <%= f.hidden_field :starable_id, value: starable.id %>
   <%= f.hidden_field :starable_type, value: starable.class.name %>
   <input type="submit" class='btn btn-primary btn-xs' name="commit" value="&#9733;">

@@ -1,1 +1,3 @@
-<a class="btn btn-primary btn-xs" id="unstar-btn" href="/stars/<%= star.id %>" data-method="delete" data-remote="true" rel="nofollow">&#9733;</a><br>
+<%= form_for star, html: { id: "unstar-form" }, method: :delete do |f| %>
+  <%= f.submit "★", class: 'btn btn-primary btn-xs', id: 'unstar-btn' %>
+<% end %>

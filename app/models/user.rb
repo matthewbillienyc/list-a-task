@@ -19,20 +19,15 @@ class User < ActiveRecord::Base
     tasks.with_deleted.length
   end
 
-  def total_starred_lists
-    list_stars = Star.list.with_deleted
-    starred_lists = list_stars.map { |star| List.with_deleted.find(star.starable_id) }
-    @total_starred_lists = starred_lists.select { |list| list.user_id == self.id }.length
+  def total_starred_tasks
+    Star.with_deleted.task.select { |star| star.find_user_including_deleted_records == self }.length
   end
 
-  def total_starred_tasks
-    task_stars = Star.task.with_deleted
-    starred_tasks = task_stars.map { |star| Task.with_deleted.find(star.starable_id) }
-    tasks_lists = starred_tasks.map { |task| List.with_deleted.find(task.list_id) }
-    @total_starred_tasks = tasks_lists.select { |list| list.user_id == self.id }.length
+  def total_starred_lists
+    Star.with_deleted.list.select { |star| star.find_user_including_deleted_records == self }.length
   end
 
   def total_starred_items
-    (@total_starred_lists || self.total_starred_lists) + (@total_starred_tasks || self.total_starred_tasks)
+    Star.with_deleted.select { |star| star.find_user_including_deleted_records == self }.length
   end
 end

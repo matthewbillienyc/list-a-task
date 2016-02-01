@@ -1,0 +1,17 @@
+<table class="table table-striped table-hover">
+  <legend>Active Items</legend>
+  <thead>
+    <th>Lists</th>
+    <th>Tasks</th>
+    <th>Starred Lists</th>
+    <th>Starred Tasks</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= List.all.length %></td>
+      <td><%= Task.all.length %></td>
+      <td><%= Star.list.length %></td>
+      <td><%= Star.task.length %></td>
+    </tr>
+  </tbody>
+</table>

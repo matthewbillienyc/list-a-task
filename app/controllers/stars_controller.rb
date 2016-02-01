@@ -8,9 +8,11 @@ class StarsController < ApplicationController
 
   def destroy
     @star = Star.find(params[:id])
+    starable_id = @star.starable_id
+    starable_type = @star.starable_type
     star_partial = render_to_string(partial: 'stars/star', locals: {starable: @star.starable})
     @star.destroy
-    render json: { star_partial: star_partial, starable_id: @star.starable_id, starable_type: @star.starable_type }
+    render json: { star_partial: star_partial, starable_id: starable_id, starable_type: starable_type }
   end
 
   private

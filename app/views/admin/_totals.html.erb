@@ -1,0 +1,15 @@
+<table class="table table-striped table-hover">
+  <legend>Total created</legend>
+  <thead>
+    <th>Lists</th>
+    <th>Tasks</th>
+    <th>Stars</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= List.with_deleted.length %></td>
+      <td><%= Task.with_deleted.length %></td>
+      <td><%= Star.with_deleted.length %></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,4 +1,4 @@
-<%= form_for Task.new, html: {class: "form-horizontal add-task"}, remote: true do |f| %>
+<%= form_for Task.new, html: {class: "form-horizontal add-task"} do |f| %>
   <div class="row">
     <div class="col-xs-6">
       <%= f.label :list_id, "List " %> <%= f.select :list_id, @user.lists.map {|list| [list.name, list.id]} %><br>
