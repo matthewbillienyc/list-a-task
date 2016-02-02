@@ -33,3 +33,11 @@ My views are made up almost entirely of partials to allow them to render_to_stri
 Future plans include figuring out a better solution to 'User#total_starred_items', adding some advanced activerecord methods, hopefully figuring out a way to delegate a user to my polymorphic Star class, and creating custom css layouts for lists and tasks. I would also like to implement a Tag model for Lists, with a ListTags join table.
 
 Hope you enjoy my roided up task lister!
+
+--- updates ---
+
+Refactored javascript to be object oriented
+Added many more user stats to admin page
+Added search tool with options and results filters to admin page
+Added model methods for admin stats/search
+Refactored some class methods for optimization
