@@ -1,0 +1,37 @@
+<legend># Tasks by priority</legend>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Active</th>
+    </tr>
+    <tr>
+      <th>Low</th>
+      <th>Medium</th>
+      <th>High</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @task_stats[:active][:low] %></td>
+      <td><%= @task_stats[:active][:medium] %></td>
+      <td><%= @task_stats[:active][:high] %></td>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th>Total</th>
+    </tr>
+    <tr>
+      <th>Low</th>
+      <th>Medium</th>
+      <th>High</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @task_stats[:all][:low] %></td>
+      <td><%= @task_stats[:all][:medium] %></td>
+      <td><%= @task_stats[:all][:high] %></td>
+    </tr>
+  </tbody>
+</table>

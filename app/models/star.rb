@@ -14,6 +14,14 @@ class Star < ActiveRecord::Base
     end
   end
 
+  def self.active_starred_tasks
+    where(starable_type: "Task").length
+  end
+
+  def self.active_starred_lists
+    where(starable_type: "List").length
+  end
+
   def find_starable_including_deleted
     self.starable_type.constantize.with_deleted.find(self.starable_id)
   end

@@ -10,19 +10,19 @@ class Task < ActiveRecord::Base
     where(priority: priority)
   end
 
-  def self.deleted_with_priority(priority)
-    only_deleted.where(priority: priority)
+  def self.active_with_priority(priority)
+    where(priority: priority)
   end
 
-  def self.deleted_and_active_with_priority(priority)
+  def self.all_with_priority(priority)
     with_deleted.where(priority: priority)
   end
 
-  def self.active_starred_tasks
-    all.select { |task| task.star }
+  def self.search_all_like(keyword)
+    with_deleted.where("description LIKE ?", "%#{keyword}%")
   end
 
-  def self.search_all_description_like(keyword)
-    with_deleted.where("description LIKE ?", "%#{keyword}%")
+  def self.search_active_like(keyword)
+    where("description LIKE ?", "%#{keyword}%")
   end
 end

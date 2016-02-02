@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password_digest
   mount_uploader :avatar, AvatarUploader
 
+
   def has_avatar?
     !self.avatar.current_path.nil?
   end
@@ -20,14 +21,28 @@ class User < ActiveRecord::Base
   end
 
   def total_starred_tasks
-    Star.with_deleted.task.select { |star| star.find_user_including_deleted_records == self }.length
+    Star.with_deleted.task.length
   end
 
   def total_starred_lists
-    Star.with_deleted.list.select { |star| star.find_user_including_deleted_records == self }.length
+    Star.with_deleted.list.length
   end
 
   def total_starred_items
-    Star.with_deleted.select { |star| star.find_user_including_deleted_records == self }.length
+    Star.with_deleted.length
+  end
+
+  def self.with_most_active_lists
+    id = joins(:lists).select("users.id, COUNT(lists.user_id) AS num_lists").group(:id).order("num_lists DESC").limit(1).first
+    find(id)
+  end
+
+  def self.with_most_total_lists
+    id = List.with_deleted.select("lists.user_id, COUNT(lists.*) AS lists_for_user").group(:user_id).order("lists_for_user DESC").limit(1).first.user_id
+    User.find(id)
+  end
+
+  def self.with_most_active_tasks
+    joins(:lists, :tasks).select("users.*, COUNT(tasks.*) as num_tasks").group("users.id").order("num_tasks DESC").limit(1).first
   end
 end

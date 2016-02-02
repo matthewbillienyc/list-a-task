@@ -1,0 +1,23 @@
+<legend>List Results</legend>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>List</th>
+      <th>User</th>
+      <th class="right-align">Deleted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% lists.each do |list| %>
+      <tr>
+        <td><%= list.name %></td>
+        <td><%= list.user.username %></td>
+        <td class="right-align">
+          <% unless list.deleted_at.nil? %>
+            &#10003;
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

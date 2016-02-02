@@ -1,0 +1,32 @@
+<legend>List Statistics</legend>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Active with most tasks</th>
+      <th>User</th>
+      <th># Tasks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @list_stats[:active][:most_tasks].name %></td>
+      <td><%= @list_stats[:active][:most_tasks].user.username %></td>
+      <td><%= @list_stats[:active][:most_tasks].tasks.length %></td>
+    </tr>
+    <tr>
+      <th colspan="2">Avg # tasks per list including deleted</th>
+      <th><%= @list_stats[:all][:avg_tasks_per_list] %></th>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th colspan="3">Most common list name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><%= @list_stats[:all][:most_common_name][:name] %></td>
+      <td><%= @list_stats[:all][:most_common_name][:count] %> times</td>
+    </tr>
+  </tbody>
+</table>

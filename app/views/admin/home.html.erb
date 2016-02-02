@@ -1,14 +1,44 @@
+<%= javascript_include_tag 'admin.js' %>
+
 <div class="row well">
-  <div class="col-xs-12">
-    <h1 class="center-header">Welcome, Supreme Leader!</h1>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="center-header">Welcome, Supreme Leader!</h1>
+    </div>
   </div>
-  <div class="col-xs-4">
-    <%= render 'users' %>
+  <div class="row">
+    <div class="col-xs-4">
+      <%= render 'users' %>
+    </div>
+    <div class="col-xs-4">
+      <div class="col-xs-12">
+        <%= render 'totals' %>
+      </div>
+      <div class="col-xs-12">
+        <%= render 'active' %>
+      </div>
+      <div class="col-xs-12">
+        <%= render 'task_stats' %>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="col-xs-12">
+        <%= render 'user_stats' %>
+      </div>
+      <div class="col-xs-12">
+        <%= render 'list_stats' %>
+      </div>
+    </div>
   </div>
-  <div class="col-xs-4">
-    <%= render 'totals' %>
-  </div>
-  <div class="col-xs-4">
-    <%= render 'active' %>
+  <div class="row">
+    <div class="col-xs-4">
+      <%= render 'search' %>
+    </div>
+    <div class="col-xs-4 list-results">
+
+    </div>
+    <div class="col-xs-4 task-results">
+
+    </div>
   </div>
 </div>

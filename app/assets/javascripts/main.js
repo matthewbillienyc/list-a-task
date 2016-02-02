@@ -107,6 +107,7 @@ var deleteCallbacks = {
   deleteList: function(dataBack){
     $("#whole-list-"+dataBack.list_id).remove();
     $("option[value='"+dataBack.list_id+"']").remove();
+    listChecker();
   },
   deleteTask: function(dataBack){
     $("#task-"+dataBack.task_id).remove();

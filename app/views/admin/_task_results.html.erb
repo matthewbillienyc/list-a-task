@@ -1,0 +1,23 @@
+<legend>Task Results</legend>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Priority</th>
+      <th class="right-align">Deleted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tasks.each do |task| %>
+      <tr>
+        <td><%= task.description %></td>
+        <td><%= task.priority %></td>
+        <td class="right-align">
+          <% unless task.deleted_at.nil? %>
+            &#10003;
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

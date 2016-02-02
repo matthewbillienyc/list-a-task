@@ -5,6 +5,9 @@
 
   def home
     @users = User.where(admin: false)
+		@list_stats = list_stats
+		@user_with = user_stats
+		@task_stats = task_stats
   end
 
   def log_in_as
@@ -16,4 +19,9 @@
     log_in(@user)
     direct_user(@user)
   end
+
+	def search
+		results = check_search_options(params)
+		render json: { list_results: results["lists"], task_results: results["tasks"] }
+	end
 end
