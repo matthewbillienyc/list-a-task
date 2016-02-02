@@ -12,6 +12,9 @@
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
+          <% if admin_masquerade? %>
+            <li><%= link_to current_user.username, user_path(current_user) %></li>
+          <% end %>
           <% if admin? || admin_masquerade? %>
             <li><%= link_to 'Admin Panel', admin_path %></li>
           <% else %>

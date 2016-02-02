@@ -45,4 +45,8 @@ class User < ActiveRecord::Base
   def self.with_most_active_tasks
     joins(:lists, :tasks).select("users.*, COUNT(tasks.*) as num_tasks").group("users.id").order("num_tasks DESC").limit(1).first
   end
+
+  def self.non_admin
+    all.where(admin: false)
+  end
 end

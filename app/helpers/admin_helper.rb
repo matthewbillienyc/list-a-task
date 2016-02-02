@@ -10,15 +10,15 @@ module AdminHelper
     if admin_masquerade?
       log_out
       session[:user_id] = session[:admin_id]
+      session.delete(:admin_id)
     end
   end
 
   def check_search_options(params)
     results = { "lists" => nil, "tasks" => nil }
-    params[:deleted] ? scope = "all" : scope = "active"
     params[:include].each do |key, value|
       model = key.capitalize.constantize
-      results["#{key}s"] = render_to_string(partial: "#{key}_results", locals: { "#{key}s".to_sym => model.send("search_#{scope}_like", params[:keyword]) })
+      results["#{key}s"] = render_to_string(partial: "#{key}_results", locals: { "#{key}s".to_sym => model.send("search_all_like", params[:keyword]) })
     end
     results
   end

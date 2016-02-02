@@ -4,7 +4,7 @@
   before_action :return_current_user_to_admin, only: [:home]
 
   def home
-    @users = User.where(admin: false)
+    @users = User.non_admin
 		@list_stats = list_stats
 		@user_with = user_stats
 		@task_stats = task_stats

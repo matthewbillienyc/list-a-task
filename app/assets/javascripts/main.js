@@ -2,7 +2,6 @@
 
 $(function(){
 
-  listChecker();
   var listsDiv = $(".lists-div");
   var deleteListEl = ".delete-list";
   var deleteTaskEl = ".delete-task";
@@ -14,10 +13,11 @@ $(function(){
   var addTaskBtn = $(".add-task");
   var starForms = "#star-form";
   var unstarForms = "#unstar-form";
+  listChecker.check();
   ajax.addListener(addTaskBtn, taskAppender.addListeners);
   ajax.addListener(addListBtn, listAppender.addListeners);
-  ajax.delegateDblclick(listsDiv, priorityEl, listChecker)
-  ajax.delegateDblclick(listsDiv, descriptionEl, listChecker)
+  ajax.delegateDblclick(listsDiv, priorityEl, ajax.updateTaskListener);
+  ajax.delegateDblclick(listsDiv, descriptionEl, ajax.updateTaskListener);
   ajax.addDelegate(listsDiv, starForms, starCallbacks.star);
   ajax.addDelegate(listsDiv, unstarForms, starCallbacks.unstar);
   ajax.addDelegate(listsDiv, deleteTaskEl, deleteCallbacks.deleteTask);
@@ -27,18 +27,22 @@ $(function(){
   ajax.updateTaskListener(listsDiv, prioritySelect, editCallbacks.priorityUpdate);
   ajax.updateTaskListener(listsDiv, descriptionField, editCallbacks.descriptionUpdate);
 
-})
+});
 
-var listChecker = function(){
-  var lists = $(".list");
-  if (lists.length == 0){
-    $(".add-task").hide();
-  } else {
-    $(".add-task").show()
+function ListChecker(){ }
+ListChecker.prototype = {
+  check: function(){
+    var lists = $(".list");
+    if (lists.length == 0){
+      $(".add-task").hide();
+    } else {
+      $(".add-task").show();
+    }
   }
 }
 
-var ajax = {
+function Ajax() { }
+Ajax.prototype = {
   addListener: function(el, callback){
     el.on("submit", function(e){
       e.preventDefault();
@@ -92,7 +96,8 @@ var ajax = {
   }
 }
 
-var starCallbacks = {
+function StarCallbacks() { }
+StarCallbacks.prototype = {
   star: function(dataBack){
     var stype = dataBack.star.starable_type.toLowerCase();
     $("#"+stype+"-"+dataBack.star.starable_id+" .star-span").html(dataBack.unstar_partial);
@@ -103,27 +108,27 @@ var starCallbacks = {
   }
 }
 
-var deleteCallbacks = {
+function DeleteCallbacks() { }
+DeleteCallbacks.prototype = {
   deleteList: function(dataBack){
     $("#whole-list-"+dataBack.list_id).remove();
     $("option[value='"+dataBack.list_id+"']").remove();
-    listChecker();
+    new ListChecker().check();
   },
   deleteTask: function(dataBack){
     $("#task-"+dataBack.task_id).remove();
   }
 }
 
-var editCallbacks = {
+function EditCallbacks() { }
+EditCallbacks.prototype = {
   priorityEdit: function(dataBack){
     var prioritySelect = $(".priority[data-id="+dataBack.task.id+"]");
     prioritySelect.html(dataBack.priority_partial);
-    var dropdown = $("#edit_task_"+dataBack.task.id+" select");
   },
   descriptionEdit: function(dataBack){
     var description = $(".description[data-id="+dataBack.task.id+"]");
     description.html(dataBack.description_partial);
-    var descriptionField = $("#edit_task_"+dataBack.task.id+" input");
   },
   priorityUpdate: function(dataBack){
     var priority = $(".priority[data-id="+dataBack.task.id+"]");
@@ -135,21 +140,23 @@ var editCallbacks = {
   }
 }
 
-var listAppender = {
+function ListAppender() { }
+ListAppender.prototype = {
   addListeners: function(dataBack){
     if (dataBack.list_partial) {
       $(".lists-div").append(dataBack.list_partial);
       $("#task_list_id").append(dataBack.options_partial);
       $("#add-list input[type='text']").val("");
       $("#flash").html("");
-      listChecker();
+      new ListChecker().check();
     } else {
       $("#flash").html(dataBack.flash_partial);
     }
   }
 }
 
-var taskAppender = {
+function TaskAppender() { }
+TaskAppender.prototype = {
   addListeners: function(dataBack){
     if (dataBack.task){
       $("#whole-list-"+dataBack.task.list_id+" ul").append(dataBack.task_partial);
@@ -160,3 +167,11 @@ var taskAppender = {
     }
   }
 }
+
+var listChecker = new ListChecker();
+var taskAppender = new TaskAppender();
+var listAppender = new ListAppender();
+var ajax = new Ajax();
+var starCallbacks = new StarCallbacks();
+var deleteCallbacks = new DeleteCallbacks();
+var editCallbacks = new EditCallbacks();
