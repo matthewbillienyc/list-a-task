@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
     lists.with_deleted.length
   end
 
+  def active_stars
+    lists.select { |list| list.star }.length + tasks.select { |task| task.star }.length
+  end
+
   def tasks_total
     tasks.with_deleted.length
   end
