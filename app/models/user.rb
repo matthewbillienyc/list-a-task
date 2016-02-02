@@ -21,15 +21,15 @@ class User < ActiveRecord::Base
   end
 
   def total_starred_tasks
-    Star.with_deleted.task.length
+    Star.task.with_deleted.select { |star| star.find_user_including_deleted_records == self }.length
   end
 
   def total_starred_lists
-    Star.with_deleted.list.length
+    Star.list.with_deleted.select { |star| star.find_user_including_deleted_records == self }.length
   end
 
   def total_starred_items
-    Star.with_deleted.length
+    Star.with_deleted.select { |star| star.find_user_including_deleted_records == self }.length
   end
 
   def self.with_most_active_lists
